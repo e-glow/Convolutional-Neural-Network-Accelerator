@@ -1,0 +1,630 @@
+
+                      Design Compiler Graphical
+                            DC Ultra (TM)
+                             DFTMAX (TM)
+                         Power Compiler (TM)
+                           DesignWare (R)
+                           DC Expert (TM)
+                         Design Vision (TM)
+                          HDL Compiler (TM)
+                         VHDL Compiler (TM)
+                            DFT Compiler
+                        Library Compiler (TM)
+                         Design Compiler(R)
+
+         Version J-2014.09-SP5-2 for RHEL64 -- Jul 11, 2015
+               Copyright (c) 1988-2015 Synopsys, Inc.
+
+This software and the associated documentation are confidential and 
+proprietary to Synopsys, Inc. Your use or disclosure of this software 
+is subject to the terms and conditions of a written license agreement 
+between you, or your company, and Synopsys, Inc.
+
+Initializing...
+##############################################
+# Setup: fill out the following parameters: name of clock signal, clock period (ns),
+# reset signal name (if used), name of top-level module, name of source file
+set CLK_NAME "clk";
+clk
+set CLK_PERIOD 1.08;
+1.08
+set RST_NAME "reset";
+reset
+set TOP_MOD_NAME "conv_16_4_20_1";
+conv_16_4_20_1
+set SRC_FILE "conv_16_4_20_1.sv";
+conv_16_4_20_1.sv
+# If you have multiple source files, change the line above to list them all like this:
+# set SRC_FILE [list "file1.sv" "file2.sv"];
+###############################################
+source setupdc.tcl
+NangateOpenCellLibrary_typical.db dw_foundation.sldb
+file mkdir work_synth
+# optimize FSMs
+set fsm_auto_inferring "true"; 
+true
+set fsm_enable_state_minimization "true";
+true
+define_design_lib WORK -path work_synth
+1
+analyze $SRC_FILE -format sverilog
+Running PRESTO HDLC
+Searching for ./conv_16_4_20_1.sv
+Compiling source file ./conv_16_4_20_1.sv
+Warning:  ./conv_16_4_20_1.sv:152: Using default enum base size of 32. (VER-533)
+Presto compilation completed successfully.
+Loading db file '/home/home4/pmilder/ese507/synthesis/lib/NangateOpenCellLibrary_typical.db'
+Loading db file '/usr/local/synopsys/syn/libraries/syn/dw_foundation.sldb'
+1
+elaborate -work WORK $TOP_MOD_NAME
+Loading db file '/usr/local/synopsys/syn/libraries/syn/gtech.db'
+Loading db file '/usr/local/synopsys/syn/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'conv_16_4_20_1'.
+Information: Building the design 'datapath' instantiated from design 'conv_16_4_20_1' with
+	the parameters "16,4,20". (HDL-193)
+Warning:  ./conv_16_4_20_1.sv:88: signed to unsigned part selection occurs. (VER-318)
+Warning:  ./conv_16_4_20_1.sv:104: signed to unsigned part selection occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine datapath_N16_M4_T20 line 82 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   product_reg_reg   | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine datapath_N16_M4_T20 line 94 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      accum_reg      | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'ctrlpath' instantiated from design 'conv_16_4_20_1' with
+	the parameters "16,4". (HDL-193)
+Warning:  ./conv_16_4_20_1.sv:252: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./conv_16_4_20_1.sv:256: signed to unsigned conversion occurs. (VER-318)
+Warning:  ./conv_16_4_20_1.sv:257: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine ctrlpath_N16_M4 line 197 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine ctrlpath_N16_M4 line 222 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| load_x_counter_reg  | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine ctrlpath_N16_M4 line 232 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  inner_counter_reg  | Flip-flop |   3   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+	in routine ctrlpath_N16_M4 line 241 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  outer_counter_reg  | Flip-flop |   4   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'memory' instantiated from design 'datapath_N16_M4_T20' with
+	the parameters "20,16". (HDL-193)
+
+Inferred memory devices in process
+	in routine memory_WIDTH20_SIZE16 line 297 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    data_out_reg     | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+|       mem_reg       | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+====================================================================
+|     block name/line       | Inputs | Outputs | # sel inputs | MB |
+====================================================================
+| memory_WIDTH20_SIZE16/298 |   16   |   20    |      4       | N  |
+====================================================================
+Presto compilation completed successfully.
+Information: Building the design 'conv_16_4_20_1_f_rom'. (HDL-193)
+Warning:  ./conv_16_4_20_1.sv:7: unsigned to signed assignment occurs. (VER-318)
+Warning:  ./conv_16_4_20_1.sv:9: unsigned to signed assignment occurs. (VER-318)
+Warning:  ./conv_16_4_20_1.sv:10: unsigned to signed assignment occurs. (VER-318)
+
+Statistics for case statements in always block at line 5 in file
+	'./conv_16_4_20_1.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            6             |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+	in routine conv_16_4_20_1_f_rom line 5 in file
+		'./conv_16_4_20_1.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|        z_reg        | Flip-flop |  20   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+1
+###### CLOCKS AND PORTS #######
+set CLK_PORT [get_ports $CLK_NAME]
+{clk}
+set TMP1 [remove_from_collection [all_inputs] $CLK_PORT]
+{reset x_data[19] x_data[18] x_data[17] x_data[16] x_data[15] x_data[14] x_data[13] x_data[12] x_data[11] x_data[10] x_data[9] x_data[8] x_data[7] x_data[6] x_data[5] x_data[4] x_data[3] x_data[2] x_data[1] x_data[0] x_valid y_ready}
+set INPUTS [remove_from_collection $TMP1 $RST_NAME]
+{x_data[19] x_data[18] x_data[17] x_data[16] x_data[15] x_data[14] x_data[13] x_data[12] x_data[11] x_data[10] x_data[9] x_data[8] x_data[7] x_data[6] x_data[5] x_data[4] x_data[3] x_data[2] x_data[1] x_data[0] x_valid y_ready}
+create_clock -period $CLK_PERIOD [get_ports clk]
+1
+# set delay for inputs to be 0.2ns
+set_input_delay 0.2 -max -clock clk $INPUTS
+1
+set_output_delay 0.2 -max -clock clk [all_outputs]
+1
+###### OPTIMIZATION #######
+set_max_area 0 
+1
+###### RUN #####
+check_design
+ 
+****************************************
+check_design summary:
+Version:     J-2014.09-SP5-2
+Date:        Tue Nov 30 13:31:30 2021
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Cells                                                               5
+    Cells do not drive (LINT-1)                                     5
+--------------------------------------------------------------------------------
+
+Warning: In design 'datapath_N16_M4_T20', cell 'C176' does not drive any nets. (LINT-1)
+Warning: In design 'ctrlpath_N16_M4', cell 'C1005' does not drive any nets. (LINT-1)
+Warning: In design 'ctrlpath_N16_M4', cell 'C1014' does not drive any nets. (LINT-1)
+Warning: In design 'ctrlpath_N16_M4', cell 'C1023' does not drive any nets. (LINT-1)
+Warning: In design 'ctrlpath_N16_M4', cell 'C1031' does not drive any nets. (LINT-1)
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | J-2014.09-DWBB_201409.5.2
+                                                               |     *     |
+| Licensed DW Building Blocks        | J-2014.09-DWBB_201409.5.2
+                                                               |     *     |
+============================================================================
+
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 5 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Loaded alib file './alib-52/NangateOpenCellLibrary_typical.db.alib'
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy d before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy c before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy d/myMemInst_x before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy d/myMemInst_f before Pass 1 (OPT-776)
+Information: Ungrouping 4 of 5 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'conv_16_4_20_1'
+Information: Added key list 'DesignWare' to design 'conv_16_4_20_1'. (DDB-72)
+Information: The register 'd/myMemInst_f/z_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'd/myMemInst_f/z_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'c/state_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[18]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[17]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[16]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[15]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[14]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[13]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[12]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[11]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[10]' is removed because it is merged to 'd/myMemInst_f/z_reg[19]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[4]' is removed because it is merged to 'd/myMemInst_f/z_reg[8]'. (OPT-1215)
+Information: In design 'conv_16_4_20_1', the register 'd/myMemInst_f/z_reg[3]' is removed because it is merged to 'd/myMemInst_f/z_reg[9]'. (OPT-1215)
+ Implement Synthetic for 'conv_16_4_20_1'.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+  Mapping Optimization (Phase 1)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:07    4568.3      0.31       9.7      12.6                           102912.2266
+    0:00:07    4567.5      0.31       9.7      12.6                           102883.5234
+    0:00:07    4567.5      0.31       9.7      12.6                           102883.5234
+    0:00:07    4567.2      0.31       9.6       6.1                           102859.7266
+  Re-synthesis Optimization (Phase 1)
+  Re-synthesis Optimization (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Mapping 'conv_16_4_20_1_DP_OP_38J1_122_7890_1'
+    0:00:09    4171.4      0.17       3.5       0.0                           88149.5859
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:09    4171.4      0.17       3.5       0.0                           88149.5859
+    0:00:09    4171.4      0.17       3.5       0.0                           88149.5859
+    0:00:09    4171.7      0.17       3.5       0.0                           88171.2031
+    0:00:09    4171.7      0.17       3.5       0.0                           88171.2031
+    0:00:11    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:11    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:11    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:11    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:12    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:12    4177.3      0.17       3.4       0.0                           88362.4844
+    0:00:16    4207.9      0.16       3.1       0.0                           89385.4609
+    0:00:16    4207.9      0.16       3.1       0.0                           89385.4609
+    0:00:17    4207.9      0.16       3.1       0.0                           89385.4609
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:17    4196.7      0.15       2.7       0.0                           89062.4062
+    0:00:20    4234.2      0.12       2.5       0.0                           90281.5156
+    0:00:20    4234.2      0.12       2.5       0.0                           90281.5156
+    0:00:22    4235.0      0.12       2.3       0.0                           90286.3516
+    0:00:22    4234.5      0.11       2.3       0.0                           90250.3594
+    0:00:23    4270.9      0.09       1.8       0.0                           91474.7188
+    0:00:23    4270.9      0.09       1.8       0.0                           91474.7188
+    0:00:24    4270.9      0.09       1.8       0.0                           91474.7188
+    0:00:24    4288.5      0.06       1.1       0.0 d/product_reg_reg[12]/D   91789.3125
+    0:00:25    4288.2      0.06       1.1       0.0                           91752.5938
+    0:00:25    4292.2      0.06       1.1       0.0                           91895.6641
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:25    4292.2      0.06       1.1       0.0                           91895.6641
+    0:00:25    4256.0      0.06       1.1       0.0                           90888.7031
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:26    4243.2      0.06       1.1       0.0                           90593.1484
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+    0:00:30    4247.2      0.00       0.0       0.0                           89810.8359
+    0:00:31    4244.6      0.00       0.0       0.0                           89774.7734
+    0:00:31    4244.6      0.00       0.0       0.0                           89774.7734
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:31    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:32    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:32    4243.8      0.00       0.0       0.0                           89690.8203
+    0:00:33    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:33    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:34    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:34    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:34    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:34    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:35    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:35    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:35    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:35    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:36    4257.6      0.00       0.0       0.0                           90164.3125
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:36    4257.6      0.00       0.0       0.0                           90164.3125
+    0:00:36    4225.1      0.00       0.0       0.0                           88830.7969
+    0:00:36    4214.2      0.00       0.0       0.0                           88600.0547
+    0:00:36    4214.2      0.00       0.0       0.0                           88600.0547
+    0:00:36    4214.2      0.00       0.0       0.0                           88579.6094
+    0:00:36    4204.4      0.00       0.0       0.0                           88324.5469
+    0:00:37    4207.9      0.00       0.0       0.0                           88436.4844
+    0:00:37    4203.1      0.00       0.0       0.0                           88195.5469
+Loading db file '/home/home4/pmilder/ese507/synthesis/lib/NangateOpenCellLibrary_typical.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+report_area
+ 
+****************************************
+Report : area
+Design : conv_16_4_20_1
+Version: J-2014.09-SP5-2
+Date   : Tue Nov 30 13:32:08 2021
+****************************************
+
+Information: Updating design information... (UID-85)
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/home4/pmilder/ese507/synthesis/lib/NangateOpenCellLibrary_typical.db)
+
+Number of ports:                           46
+Number of nets:                          2643
+Number of cells:                         2507
+Number of combinational cells:           2105
+Number of sequential cells:               402
+Number of macros/black boxes:               0
+Number of buf/inv:                        473
+Number of references:                      39
+
+Combinational area:               2378.306018
+Buf/Inv area:                      271.852002
+Noncombinational area:            1824.759935
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                  4203.065953
+Total area:                 undefined
+1
+report_power
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : conv_16_4_20_1
+Version: J-2014.09-SP5-2
+Date   : Tue Nov 30 13:32:08 2021
+****************************************
+
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/home4/pmilder/ese507/synthesis/lib/NangateOpenCellLibrary_typical.db)
+
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+conv_16_4_20_1         5K_hvratio_1_1    NangateOpenCellLibrary
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+  Cell Internal Power  =   1.8668 mW   (82%)
+  Net Switching Power  = 415.5894 uW   (18%)
+                         ---------
+Total Dynamic Power    =   2.2824 mW  (100%)
+
+Cell Leakage Power     =  88.3065 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
+register       1.5580e+03           30.6369        3.2006e+04        1.6206e+03  (  68.36%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational    308.8140          384.9529        5.6300e+04          750.0670  (  31.64%)
+--------------------------------------------------------------------------------------------------
+Total          1.8668e+03 uW       415.5898 uW     8.8306e+04 nW     2.3707e+03 uW
+1
+report_timing
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : conv_16_4_20_1
+Version: J-2014.09-SP5-2
+Date   : Tue Nov 30 13:32:08 2021
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: d/myMemInst_x/data_out_reg[8]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: d/product_reg_reg[19]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  conv_16_4_20_1     5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  d/myMemInst_x/data_out_reg[8]/CK (DFF_X1)               0.00       0.00 r
+  d/myMemInst_x/data_out_reg[8]/Q (DFF_X1)                0.09       0.09 r
+  U1649/ZN (XNOR2_X1)                                     0.07       0.15 r
+  U1302/Z (BUF_X2)                                        0.07       0.23 r
+  U1683/ZN (OAI22_X1)                                     0.05       0.28 f
+  U1688/ZN (XNOR2_X1)                                     0.06       0.35 f
+  U1858/S (FA_X1)                                         0.14       0.49 r
+  U1689/ZN (XNOR2_X1)                                     0.07       0.56 r
+  U1708/ZN (XNOR2_X1)                                     0.06       0.62 r
+  U1737/ZN (OR2_X2)                                       0.05       0.67 r
+  U1808/ZN (NAND2_X1)                                     0.03       0.69 f
+  U1230/ZN (AOI21_X1)                                     0.06       0.75 r
+  U1229/ZN (OR2_X1)                                       0.05       0.80 r
+  U1901/ZN (NAND3_X1)                                     0.04       0.84 f
+  U1491/ZN (AND2_X1)                                      0.04       0.88 f
+  U1984/ZN (OAI21_X1)                                     0.04       0.92 r
+  U2005/ZN (XNOR2_X1)                                     0.06       0.98 r
+  U1387/ZN (NOR2_X1)                                      0.02       1.01 f
+  U2139/ZN (NOR2_X1)                                      0.03       1.04 r
+  d/product_reg_reg[19]/D (DFF_X2)                        0.01       1.05 r
+  data arrival time                                                  1.05
+
+  clock clk (rise edge)                                   1.08       1.08
+  clock network delay (ideal)                             0.00       1.08
+  d/product_reg_reg[19]/CK (DFF_X2)                       0.00       1.08 r
+  library setup time                                     -0.03       1.05
+  data required time                                                 1.05
+  --------------------------------------------------------------------------
+  data required time                                                 1.05
+  data arrival time                                                 -1.05
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+write -f verilog $TOP_MOD_NAME -output gates.v -hierarchy
+Writing verilog file '/home/home5/elow/ese507work/projects/proj3_updated/part1/gates.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+1
+quit
+
+Thank you...

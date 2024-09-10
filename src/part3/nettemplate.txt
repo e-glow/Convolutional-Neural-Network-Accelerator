@@ -1,0 +1,31 @@
+// Jason Cheung and Evan Low
+
+module <MODULENAME>(clk, reset, x_data, x_valid, x_ready, y_data, y_valid, y_ready);
+   parameter N = <PARAM_N>, M1 = <PARAM_M1>, M2 = <PARAM_M2>, M3 = <PARAM_M3>, T = <PARAM_T>, P1 = <PARAM_P1>, P2 = <PARAM_P2>, P3 = <PARAM_P3>;
+   localparam L1 = N-M1+1, L2 = L1-M2+1;
+
+   // input and output
+   input clk, reset, x_valid, y_ready;
+   input signed [T-1:0] x_data;
+   output x_ready, y_valid;
+   output signed [T-1:0] y_data;
+
+   // signals to connect layers
+   logic signed [T-1:0] y_data1;
+   logic y_valid1;
+
+   logic x_ready2;
+   logic signed [T-1:0] y_data2;
+   logic y_valid2;
+
+   logic x_ready3;
+
+   // connect 3 layers together 
+   // make sure the parameters are correct, input o layer is output of previous
+   <LAYER1_MODULENAME> #(N, M1, T, P1) layer1(.clk(clk),.reset(reset), .x_data(x_data), .x_valid(x_valid), .x_ready(x_ready), .y_data(y_data1), .y_valid(y_valid1), .y_ready(x_ready2));
+   <LAYER2_MODULENAME> #(L1, M2, T, P2) layer2(.clk(clk),.reset(reset), .x_data(y_data1), .x_valid(y_valid1), .x_ready(x_ready2), .y_data(y_data2), .y_valid(y_valid2), .y_ready(x_ready3));
+   <LAYER3_MODULENAME> #(L2, M3, T, P3) layer3(.clk(clk),.reset(reset), .x_data(y_data2), .x_valid(y_valid2), .x_ready(x_ready3), .y_data(y_data), .y_valid(y_valid), .y_ready(y_ready));
+
+
+endmodule
+   

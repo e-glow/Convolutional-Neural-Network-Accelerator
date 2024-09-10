@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+# ./testmode1 N M T 
+
+rm -rf work
+vlib work
+./testgen 1 $1 $2 $3
+./gen 1 $1 $2 $3 const_$1_$2_$3_1.txt 
+vlog conv_$1_$2_$3_1.sv tb_conv_$1_$2_$3_1.sv 
+vsim -c tb_conv_$1_$2_$3_1 -do "run -all; quit"
